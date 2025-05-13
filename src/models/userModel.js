@@ -64,6 +64,19 @@ const UserModel = {
     }
   },
 
+  async findByUserId(userId) {
+    try {
+      const conn = await connect();
+      const [rows] = await conn.execute('SELECT * FROM users WHERE id = ?', [userId]);
+      return rows[0];
+    } catch (error) {
+      console.error('UserModel.findByUsername error:', error);
+      throw error;
+    }
+  },
+
+
+
   async updateVerifyToken(email, token, expiry) {
     try {
       const conn = await connect();
